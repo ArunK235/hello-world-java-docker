@@ -40,11 +40,11 @@ jobs:
         echo "$IMAGE_NAME:$TAG" > image-tag.txt
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: my-artifact
         path: image-tag.txt
-        retention-days: 90 
+        retention-days: 30 
 
     - name: Debug - Check uploaded file
       run: |
