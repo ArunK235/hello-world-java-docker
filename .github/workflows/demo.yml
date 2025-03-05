@@ -33,11 +33,11 @@ jobs:
 
     - name: Build and Tag Docker Image
       run: |
-        IMAGE_NAME=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/hello-world-java-docker/app
+        IMAGE_NAME=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/uc-ai-dev/app
         docker build -t $IMAGE_NAME:latest .
 
     - name: Push Docker Image to GAR
       run: |
-        IMAGE_NAME=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/hello-world-java-docker/app
+        IMAGE_NAME=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/uc-ai-dev/app
         docker push $IMAGE_NAME:latest
 
