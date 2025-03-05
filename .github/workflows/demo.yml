@@ -3,7 +3,7 @@ name: CI - Build & Push to GAR
 on:
   push:
     branches:
-      - master  # Trigger on push to master
+      - master  
 
 jobs:
   build-and-push:
