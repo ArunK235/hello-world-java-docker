@@ -1,9 +1,9 @@
-name: CI - Build, Dockerize & Push to GAR
+name: CI - Build & Push to GAR
 
 on:
   push:
     branches:
-      - master  # Runs when changes are pushed to 'main'
+      - master  # Trigger on push to master
 
 jobs:
   build-and-push:
@@ -31,13 +31,16 @@ jobs:
       run: |
         gcloud auth configure-docker ${{ secrets.REGION }}-docker.pkg.dev
 
-    - name: Build and Tag Docker Image
+    - name: Build and Push Docker Image
       run: |
         IMAGE_NAME=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/uc-ai-dev/app
-        docker build -t $IMAGE_NAME:latest .
+        TAG="v1.0.0"
+        docker build -t $IMAGE_NAME:$TAG .
+        docker push $IMAGE_NAME:$TAG
+        echo "IMAGE_NAME=$IMAGE_NAME:$TAG" >> $GITHUB_ENV
 
-    - name: Push Docker Image to GAR
-      run: |
-        IMAGE_NAME=${{ secrets.REGION }}-docker.pkg.dev/${{ secrets.PROJECT_ID }}/uc-ai-dev/app
-        docker push $IMAGE_NAME:latest
-
+    - name: Save Image Tag as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: image-tag
+        path: ./image-tag.txt
