@@ -18,14 +18,11 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCLOUD_AUTH }}
 
-    - name: Download Image Tag Artifact
-      uses: dawidd6/action-download-artifact@v2
+    - name: Restore Image Tag from Cache
+      uses: actions/cache@v4
       with:
-        workflow: demo.yml  # ✅ Replace with the actual CI workflow file name
-        name: my-artifact
-        path: .
-        repo: ArunK235/hello-world-java-docker
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        path: image-tag.txt
+        key: image-tag-${{ github.run_id }}
 
     - name: Deploy to Cloud Run
       run: |
