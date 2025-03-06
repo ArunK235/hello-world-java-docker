@@ -39,14 +39,11 @@ jobs:
         docker push $IMAGE_NAME:$TAG
         echo "$IMAGE_NAME:$TAG" > image-tag.txt
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
+    - name: Cache Image Tag
+      uses: actions/cache@v4
       with:
-        name: my-artifact
         path: image-tag.txt
-        retention-days: 30 
+        key: image-tag-${{ github.run_id }}
 
-    - name: Debug - Check uploaded file
-      run: |
-        ls -l image-tag.txt
-
+    - name: Debug - Check cached file
+      run: ls -l image-tag.txt
