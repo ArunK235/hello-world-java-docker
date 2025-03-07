@@ -3,7 +3,7 @@ name: Frontend CI/CD - Deploy to Cloud Run
 on:
   push:
     branches:
-      - feature/devops
+      - master
       # - feature/login
 
 jobs:
